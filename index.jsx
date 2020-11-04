@@ -1,6 +1,6 @@
 const { Plugin } = require('@entities');
 
-const Settings = require('./components/SettingsClass');
+const Settings = require('./components/SettingsFunctional');
 
 module.exports = class ExamplePluginSettings extends Plugin {
   onStart () {
@@ -8,8 +8,8 @@ module.exports = class ExamplePluginSettings extends Plugin {
      * This won't be required later, as it will be automatically generated based
      * on the existence of components/Settings.jsx
      */
-    vizality.api.settings.registerDashboardSettings({
-      id: 'Example Settings Plugin',
+    vizality.api.settings.registerAddonSettings({
+      id: this.entityID,
       render: Settings
     });
   }

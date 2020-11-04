@@ -6,7 +6,7 @@ const { settings: {
 const { getModule, getModuleByDisplayName } = require('@webpack');
 const { React } = require('@react');
 
-module.exports = React.memo(() => {
+module.exports = React.memo(({ getSetting, toggleSetting, updateSetting }) => {
   const Flex = getModuleByDisplayName('Flex');
   const classes = {
     initialized: true,
@@ -14,39 +14,36 @@ module.exports = React.memo(() => {
     alignCenter: getModule('alignCenter')
   };
 
-  // eslint-disable-next-line consistent-this
-  const _this = vizality.manager.plugins.get('example-plugin-settings');
-
   return (
     <>
       <Category
         name={'Example Category Item'}
         description={'This is an example category item.'}
-        opened={_this.settings.get('example-category-item', false)}
-        onChange={() => _this.settings.set('example-category-item')}
+        opened={getSetting('example-category-item', false)}
+        onChange={() => toggleSetting('example-category-item')}
       >
         <SwitchItem
           note='This is an example of a disabled switch item.'
-          value={_this.settings.get('example-disabled-switch-item', true)}
+          value={getSetting('example-disabled-switch-item', true)}
           disabled
-          onChange={() => _this.settings.set('example-disabled-switch-item')}
+          onChange={() => toggleSetting('example-disabled-switch-item')}
         >
           Disabled Switch Item
         </SwitchItem>
         <TextInput
           note='This is an example of a simple text input.'
-          defaultValue={_this.settings.get('example-text-input', 'Example Input Text')}
+          defaultValue={getSetting('example-text-input', 'Example Input Text')}
           required={false}
-          disabled={!_this.settings.get('example-disabled-switch-item', true)}
-          onChange={val => _this.settings.set('example-text-input', val)}
+          disabled={!getSetting('example-disabled-switch-item', true)}
+          onChange={val => updateSetting('example-text-input', val)}
         >
           Example Text Input
         </TextInput>
       </Category>
       <RadioGroup
         required={false}
-        onChange={val => _this.settings.set('example-radio-group', val.value)}
-        value={_this.settings.get('example-radio-group', 'radio-item-2')}
+        onChange={val => updateSetting('example-radio-group', val.value)}
+        value={getSetting('example-radio-group', 'radio-item-2')}
         options={[
           {
             name: 'Radio Button Item 1',
@@ -67,14 +64,14 @@ module.exports = React.memo(() => {
       </RadioGroup>
       <SwitchItem
         note='This is an example of a switch item.'
-        value={_this.settings.get('example-switch-item', false)}
-        onChange={() => _this.settings.set('example-switch-item')}
+        value={getSetting('example-switch-item', false)}
+        onChange={() => toggleSetting('example-switch-item')}
       >
         Example Switch Item
       </SwitchItem>
       <SelectInput
         note={'This is an example of a select input.'}
-        value={_this.settings.get('example-select-input')}
+        value={getSetting('example-select-input')}
         options={[
           {
             value: 'option-1',
@@ -93,7 +90,7 @@ module.exports = React.memo(() => {
             label: 'Option 4'
           }
         ]}
-        onChange={res => _this.settings.set('example-select-input', res.value)}
+        onChange={res => updateSetting('example-select-input', res.value)}
       >
         Example Select Input
       </SelectInput>
@@ -121,8 +118,8 @@ module.exports = React.memo(() => {
           533306
         ]}
         def={10070709}
-        value={_this.settings.get('example-color-input', 10070709)}
-        onChange={res => _this.settings.set('example-color-input', res)}
+        value={getSetting('example-color-input', 10070709)}
+        onChange={res => updateSetting('example-color-input', res)}
       >
         Example Color Picker
       </ColorPickerInput>
@@ -132,7 +129,7 @@ module.exports = React.memo(() => {
           width: 50,
           marginBottom: 20,
           borderRadius: 1000,
-          backgroundColor: getModule('int2hex', 'getDarkness', 'isValidHex').int2hex(_this.settings.get('example-color-input'))
+          backgroundColor: getModule('int2hex', 'getDarkness', 'isValidHex').int2hex(getSetting('example-color-input'))
         }}>
       </div>
       <CopyInput value={'Some text to be copied'}>
@@ -146,13 +143,13 @@ module.exports = React.memo(() => {
         maxLength={120}
         name={''}
         onChange={val => {
-          _this.settings.set('example-textarea', val);
-          val -= _this.settings.get('example-textarea').length;
+          updateSetting('example-textarea', val);
+          val -= getSetting('example-textarea').length;
         }}
         placeholder={'The best placeholder you ever saw'}
         resizeable={false}
         rows={3}
-        value={_this.settings.get('example-textarea')}
+        value={getSetting('example-textarea')}
       >
         Example Textarea Input
       </TextArea>
@@ -160,7 +157,7 @@ module.exports = React.memo(() => {
         <div className={getModule('flexChild').flexChild} style={{ flex: '1 1 50%' }}>
           <SelectInput
             note={'This shows you how to have 2 side-by-side select inputs.'}
-            value={_this.settings.get('example-half-select')}
+            value={getSetting('example-half-select')}
             options={[
               {
                 value: 'option-1',
@@ -179,7 +176,7 @@ module.exports = React.memo(() => {
                 label: 'Option 4'
               }
             ]}
-            onChange={res => _this.settings.set('example-half-select', res.value)}
+            onChange={res => updateSetting('example-half-select', res.value)}
           >
             Select Input
           </SelectInput>
@@ -187,7 +184,7 @@ module.exports = React.memo(() => {
         <div className={getModule('flexChild').flexChild} style={{ flex: '1 1 50%' }}>
           <SelectInput
             note={'This shows you how to have 2 side-by-side select inputs.'}
-            value={_this.settings.get('example-half-select-2')}
+            value={getSetting('example-half-select-2')}
             options={[
               {
                 value: 'option-1',
@@ -206,7 +203,7 @@ module.exports = React.memo(() => {
                 label: 'Option 4'
               }
             ]}
-            onChange={res => _this.settings.set('example-half-select-2', res.value)}
+            onChange={res => updateSetting('example-half-select-2', res.value)}
           >
             Select Input
           </SelectInput>
@@ -216,8 +213,8 @@ module.exports = React.memo(() => {
         disabled={false}
         note={'This is an example slider input.'}
         initialValue={15}
-        defaultValue={_this.settings.get('example-slider', 10)}
-        onChange={v => _this.settings.set('example-slider', v)}
+        defaultValue={getSetting('example-slider', 10)}
+        onChange={v => updateSetting('example-slider', v)}
       >
         Slider Input
       </SliderInput>
@@ -228,8 +225,8 @@ module.exports = React.memo(() => {
         initialValue={15}
         markers={[ 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 26 ]}
         onMarkerRender={s => `${s}px`}
-        defaultValue={_this.settings.get('example-slider-markers', 15)}
-        onChange={v => _this.settings.set('example-slider-markers', v)}
+        defaultValue={getSetting('example-slider-markers', 15)}
+        onChange={v => updateSetting('example-slider-markers', v)}
       >
         Slider Input with Markers
       </SliderInput>
@@ -237,13 +234,13 @@ module.exports = React.memo(() => {
         align={classes.alignCenter}
         color={'#7289da'}
         disabled={false}
-        onChange={() => _this.settings.set('example-checkbox')}
+        onChange={() => toggleSetting('example-checkbox')}
         readOnly={false}
         reverse={false}
         // shape={'box-mmYMsp'}
         size={24}
         type={'inverted'}
-        value={_this.settings.get('example-checkbox')}
+        value={getSetting('example-checkbox')}
       >
         Just a simple checkbox.
       </Checkbox>
