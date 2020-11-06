@@ -1,10 +1,10 @@
 const { settings: {
   TextInput, SwitchItem, Category, RadioGroup, SelectInput, ColorPickerInput,
   CopyInput, TextArea, RegionSelector, SliderInput, PermissionOverrideItem, Checkbox
-} } = require('@components');
+} } = require('@vizality/components');
 
-const { getModule, getModuleByDisplayName } = require('@webpack');
-const { React } = require('@react');
+const { getModule, getModuleByDisplayName } = require('@vizality/webpack');
+const { React } = require('@vizality/react');
 
 module.exports = class Settings extends React.Component {
   constructor (props) {

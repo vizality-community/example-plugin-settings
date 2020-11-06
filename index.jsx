@@ -1,4 +1,4 @@
-const { Plugin } = require('@entities');
+const { Plugin } = require('@vizality/entities');
 
 const Settings = require('./components/SettingsFunctional');
 
