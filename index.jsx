@@ -9,7 +9,7 @@ module.exports = class ExamplePluginSettings extends Plugin {
      * on the existence of components/Settings.jsx
      */
     vizality.api.settings.registerAddonSettings({
-      id: this.entityID,
+      id: this.addonId,
       render: Settings
     });
   }
