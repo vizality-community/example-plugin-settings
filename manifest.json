@@ -1,10 +1,11 @@
 {
   "name": "Example Plugin Settings",
   "version": "0.0.1",
-  "author": "dperolio",
-  "authorId": "97549189629636608",
+  "author": {
+    "name": "dperolio",
+    "id": "97549189629636608"
+  },
   "description": "A simple demo plugin demonstrating how to use the most common settings components.",
   "icon": "assets/icon.png",
-  "color": "#247366",
   "license": "MIT"
 }
