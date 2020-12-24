@@ -1,12 +1,9 @@
-const { settings: {
-  TextInput, SwitchItem, Category, RadioGroup, SelectInput, ColorPickerInput,
-  CopyInput, TextArea, RegionSelector, SliderInput, PermissionOverrideItem, Checkbox
-} } = require('@vizality/components');
+import React, { memo } from 'react';
 
-const { getModule, getModuleByDisplayName } = require('@vizality/webpack');
-const { React } = require('@vizality/react');
+import { TextInput, SwitchItem, Category, RadioGroup, SelectInput, ColorPickerInput, CopyInput, TextArea, RegionSelector, SliderInput, PermissionOverrideItem, Checkbox } from '@vizality/components/settings';
+import { getModule, getModuleByDisplayName } from '@vizality/webpack';
 
-module.exports = React.memo(({ getSetting, toggleSetting, updateSetting }) => {
+export default memo(({ getSetting, toggleSetting, updateSetting }) => {
   const Flex = getModuleByDisplayName('Flex');
   const classes = {
     initialized: true,

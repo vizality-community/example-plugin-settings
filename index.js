@@ -1,8 +1,8 @@
-const { Plugin } = require('@vizality/entities');
+import { Plugin } from '@vizality/core';
 
-const Settings = require('./components/SettingsFunctional');
+import Settings from './components/SettingsFunctional';
 
-module.exports = class ExamplePluginSettings extends Plugin {
+export default class ExamplePluginSettings extends Plugin {
   onStart () {
     /*
      * This won't be required later, as it will be automatically generated based
@@ -13,4 +13,4 @@ module.exports = class ExamplePluginSettings extends Plugin {
       render: Settings
     });
   }
-};
+}
